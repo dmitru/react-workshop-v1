@@ -8,9 +8,11 @@ export default class BookSearchForm extends Component {
     super(props);
     this.state = {
       searchInput: props.defaultValue,
+      favoriteOnly: false,
     };
 
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
+    this.handleFavoriteOnlyCheckboxChange = this.handleFavoriteOnlyCheckboxChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -20,9 +22,18 @@ export default class BookSearchForm extends Component {
     });
   }
 
+  handleFavoriteOnlyCheckboxChange(event) {
+    this.setState({
+      favoriteOnly: event.target.checked,
+    });
+  }
+
   handleSubmit(event) {
     event.preventDefault();
-    this.props.onChange(this.state.searchInput);
+    this.props.onChange({
+      search: this.state.searchInput,
+      isFavoriteOnly: this.state.favoriteOnly,
+    });
   }
 
   render() {
@@ -35,6 +46,12 @@ export default class BookSearchForm extends Component {
           type="text"
           placeholder="Search books..."
         />
+
+        <label>
+          Only favorites?
+          <input type="checkbox" value={this.state.favoriteOnly} onChange={this.handleFavoriteOnlyCheckboxChange} />
+        </label>
+
         <button type="submit" className="SearchButton">
           Search!
         </button>

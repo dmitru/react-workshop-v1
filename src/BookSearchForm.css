@@ -1,9 +1,11 @@
 .SearchBooksInput {
   padding: 1rem;
   font-size: 1.3em;
+  margin-right: 1rem;
 }
 
 .SearchButton {
   padding: 1rem;
   font-size: 1.3em;
+  margin-left: 1rem;
 }

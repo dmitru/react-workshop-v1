@@ -9,40 +9,42 @@ export default class BookList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchInputValue: '',
+      filters: {},
     };
 
-    this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.handleFiltersChange = this.handleFiltersChange.bind(this);
   }
 
-  handleSearchChange(value) {
-    this.setState({
-      searchInputValue: value,
-    });
+  handleFiltersChange(filters) {
+    this.setState({ filters });
   }
 
   getFilteredBooks() {
-    const { searchInputValue } = this.state;
     const { books } = this.props;
-    if (!bookSearchValue) {
-      return books;
-    }
+    const { filters: { search, isFavoriteOnly } } = this.state;
 
-    return books.filter(
-      b => b.title.toLowerCase().search(searchInputValue.toLowerCase()) > -1
-    );
+    const booksFilteredByTitle = search
+      ? books.filter(
+          b => b.title.toLowerCase().search(search.toLowerCase()) > -1
+        )
+      : books;
+
+    const booksFilteredByTitleAndFavorite = isFavoriteOnly
+      ? booksFilteredByTitle.filter(b => b.isFavorite)
+      : booksFilteredByTitle;
+
+    return booksFilteredByTitleAndFavorite;
   }
 
   render() {
     const { showSearch } = this.props;
-    const { searchInputValue } = this.state;
 
     const filteredBooks = this.getFilteredBooks();
 
     return (
       <div className="BookList">
         {showSearch && (
-          <BookSearchForm onChange={this.handleSearchChange} defaultValue="" />
+          <BookSearchForm onChange={this.handleFiltersChange} defaultValue="" />
         )}
 
         {filteredBooks.map(
