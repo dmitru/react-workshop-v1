@@ -52,17 +52,20 @@ export default class BookList extends Component {
           <BookSearchForm onChange={this.handleFiltersChange} defaultValue="" />
         )}
 
-        {filteredBooks.map(
-          ({ id, title, summary, isFavorite, reviewsCount }) => (
-            <Book
-              key={id}
-              title={title}
-              isFavorite={isFavorite}
-              reviews={reviewsCount}
-              onFavoriteClick={() => this.handleBookFavoriteClick(id)}
-            />
-          )
-        )}
+        {filteredBooks.length > 0 &&
+          filteredBooks.map(
+            ({ id, title, summary, isFavorite, reviewsCount }) => (
+              <Book
+                key={id}
+                title={title}
+                isFavorite={isFavorite}
+                reviews={reviewsCount}
+                onFavoriteClick={() => this.handleBookFavoriteClick(id)}
+              />
+            )
+          )}
+
+        {filteredBooks.length === 0 && <p>No books matching the filters.</p>}
       </div>
     );
   }
