@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Book from './Book';
+import BookSearchForm from './BookSearchForm';
 import './BookList.css';
 
 export default class BookList extends Component {
@@ -11,19 +12,19 @@ export default class BookList extends Component {
       searchInputValue: '',
     };
 
-    this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
   }
 
-  handleSearchInputChange(event) {
+  handleSearchChange(value) {
     this.setState({
-      searchInputValue: event.target.value.trim(),
+      searchInputValue: value,
     });
   }
 
   getFilteredBooks() {
     const { searchInputValue } = this.state;
     const { books } = this.props;
-    if (!searchInputValue) {
+    if (!bookSearchValue) {
       return books;
     }
 
@@ -41,13 +42,7 @@ export default class BookList extends Component {
     return (
       <div className="BookList">
         {showSearch && (
-          <input
-            onChange={this.handleSearchInputChange}
-            value={searchInputValue}
-            className="SearchBooksInput"
-            type="text"
-            placeholder="Search books..."
-          />
+          <BookSearchForm onChange={this.handleSearchChange} defaultValue="" />
         )}
 
         {filteredBooks.map(
