@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './App.css';
 
 function Book({ title, reviews, isFavorite }) {
@@ -8,10 +9,21 @@ function Book({ title, reviews, isFavorite }) {
       <h1>
         {favoriteIcon} {title}
       </h1>
-      {reviews ? `${reviews} review(-s)` : <em>No reviews</em>}
+      {reviews > 0 ? `${reviews} review(-s)` : <em>No reviews</em>}
     </div>
   );
 }
+
+Book.propTypes = {
+  title: PropTypes.string.isRequired,
+  reviews: PropTypes.number,
+  isFavorite: PropTypes.bool,
+};
+
+Book.defaultTypes = {
+  reviews: 0,
+  isFavorite: false,
+};
 
 class BookList extends Component {
   render() {
