@@ -1,3 +1,32 @@
+body,
+html,
+#root {
+  height: 100%;
+}
+
+.AppLayout {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.AppLayoutHeader {
+  padding: 1rem;
+  font-size: 1.4em;
+  background-color: #7e6858;
+  color: white;
+}
+
+.AppLayoutMain {
+  flex: 1;
+}
+
+.AppLayoutFooter {
+  padding: 1rem;
+  background-color: #7e6858;
+  color: white;
+}
+
 .App {
 }
 
