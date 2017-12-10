@@ -16,10 +16,38 @@ function AppLayout({ children }) {
 }
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      books: BOOKS,
+    };
+
+    this.handleBookFavoriteClick = this.handleBookFavoriteClick.bind(this);
+  }
+
+  handleBookFavoriteClick(bookId) {
+    const updatedBooks = this.state.books.map(book => {
+      if (book.id !== bookId) {
+        return book;
+      }
+      return {
+        ...book,
+        isFavorite: !book.isFavorite,
+      };
+    });
+
+    this.setState({
+      books: updatedBooks,
+    });
+  }
+
   render() {
     return (
       <AppLayout>
-        <BookList books={BOOKS} />
+        <BookList
+          books={this.state.books}
+          onBookFavoriteClick={this.handleBookFavoriteClick}
+        />
       </AppLayout>
     );
   }

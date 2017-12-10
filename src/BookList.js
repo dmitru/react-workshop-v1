@@ -13,10 +13,15 @@ export default class BookList extends Component {
     };
 
     this.handleFiltersChange = this.handleFiltersChange.bind(this);
+    this.handleBookFavoriteClick = this.handleBookFavoriteClick.bind(this);
   }
 
   handleFiltersChange(filters) {
     this.setState({ filters });
+  }
+
+  handleBookFavoriteClick(bookId) {
+    this.props.onBookFavoriteClick(bookId);
   }
 
   getFilteredBooks() {
@@ -54,6 +59,7 @@ export default class BookList extends Component {
               title={title}
               isFavorite={isFavorite}
               reviews={reviewsCount}
+              onFavoriteClick={() => this.handleBookFavoriteClick(id)}
             />
           )
         )}
@@ -72,6 +78,7 @@ BookList.propTypes = {
       isFavorite: PropTypes.bool.isRequired,
     })
   ),
+  onBookFavoriteClick: PropTypes.func.isRequired,
   showSearch: PropTypes.bool,
 };
 
