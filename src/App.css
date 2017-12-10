@@ -29,20 +29,3 @@ html,
 
 .App {
 }
-
-.Book {
-  padding: 1rem;
-  margin: 1rem 0;
-  border: 1px solid red;
-}
-
-.BookList {
-  padding: 1rem;
-  margin: 1rem;
-  border: 1px solid blue;
-}
-
-.SearchBooksInput {
-  padding: 1rem;
-  font-size: 1.3em;
-}

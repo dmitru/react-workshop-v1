@@ -1,0 +1,10 @@
+.BookList {
+  padding: 1rem;
+  margin: 1rem;
+  border: 1px solid blue;
+}
+
+.SearchBooksInput {
+  padding: 1rem;
+  font-size: 1.3em;
+}
