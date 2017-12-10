@@ -5,6 +5,8 @@ import Book from './Book';
 import BookSearchForm from './BookSearchForm';
 import './BookList.css';
 
+import { BookShape } from './shapes';
+
 export default class BookList extends Component {
   constructor(props) {
     super(props);
@@ -72,15 +74,7 @@ export default class BookList extends Component {
 }
 
 BookList.propTypes = {
-  books: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      summary: PropTypes.string.isRequired,
-      reviewsCount: PropTypes.number.isRequired,
-      isFavorite: PropTypes.bool.isRequired,
-    })
-  ),
+  books: PropTypes.arrayOf(BookShape),
   onBookFavoriteClick: PropTypes.func.isRequired,
   showSearch: PropTypes.bool,
 };
