@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './App.css';
 
+import { BOOKS } from './data';
+
 function Book({ title, reviews, isFavorite }) {
   const favoriteIcon = isFavorite ? '★' : '✩';
   return (
@@ -27,17 +29,29 @@ Book.defaultTypes = {
 
 class BookList extends Component {
   render() {
+    const { showSearch, books } = this.props;
     return (
       <div className="BookList">
-        {this.props.showSearch && <input className="SearchBooksInput" type="text" placeholder="Search books..." />}
-        <Book title="30 days without jQuery" reviews={3} />
-        <Book title="Harry Potter and the Virtual DOM" isFavorite={true} />
+        {showSearch && <input className="SearchBooksInput" type="text" placeholder="Search books..." />}
+
+        {books.map(({ id, title, summary, isFavorite, reviewsCount }) => (
+          <Book key={id} title={title} isFavorite={isFavorite} reviews={reviewsCount} />
+        ))}
       </div>
     );
   }
 }
 
 BookList.propTypes = {
+  books: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      summary: PropTypes.string.isRequired,
+      reviewsCount: PropTypes.number.isRequired,
+      isFavorite: PropTypes.bool.isRequired,
+    })
+  ),
   showSearch: PropTypes.bool,
 };
 
@@ -59,7 +73,7 @@ class App extends Component {
   render() {
     return (
       <AppLayout>
-        <BookList />
+        <BookList books={BOOKS} />
       </AppLayout>
     );
   }
