@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './App.css';
 
-function Book({ title, reviews, isFavorite }) {
+function Book({ children, title, reviews, isFavorite }) {
   const favoriteIcon = isFavorite ? '★' : '✩';
   return (
     <div className="Book">
@@ -10,6 +10,7 @@ function Book({ title, reviews, isFavorite }) {
         {favoriteIcon} {title}
       </h1>
       {reviews > 0 ? `${reviews} review(-s)` : <em>No reviews</em>}
+      <div>{children}</div>
     </div>
   );
 }
@@ -30,7 +31,9 @@ class BookList extends Component {
     return (
       <div className="BookList">
         {this.props.showSearch && <input className="SearchBooksInput" type="text" placeholder="Search books..." />}
-        <Book title="30 days without jQuery" reviews={3} />
+        <Book title="30 days without jQuery" reviews={3}>
+          I should appear
+        </Book>
         <Book title="Harry Potter and the Virtual DOM" isFavorite={true} />
       </div>
     );
