@@ -29,12 +29,21 @@ class BookList extends Component {
   render() {
     return (
       <div className="BookList">
+        {this.props.showSearch && <input className="SearchBooksInput" type="text" placeholder="Search books..." />}
         <Book title="30 days without jQuery" reviews={3} />
         <Book title="Harry Potter and the Virtual DOM" isFavorite={true} />
       </div>
     );
   }
 }
+
+BookList.propTypes = {
+  showSearch: PropTypes.bool,
+};
+
+BookList.defaultProps = {
+  showSearch: true,
+};
 
 class App extends Component {
   render() {
