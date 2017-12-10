@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 
-function Book() {
+function Book({ title, reviews, isFavorite }) {
+  const favoriteIcon = isFavorite ? '★' : '✩';
   return (
     <div className="Book">
-      <h1>Title</h1>
+      <h1>
+        {favoriteIcon} {title}
+      </h1>
+      {reviews ? `${reviews} review(-s)` : <em>No reviews</em>}
     </div>
   );
 }
@@ -13,8 +17,8 @@ class BookList extends Component {
   render() {
     return (
       <div className="BookList">
-        <Book />
-        <Book />
+        <Book title="30 days without jQuery" reviews={3} />
+        <Book title="Harry Potter and the Virtual DOM" isFavorite={true} />
       </div>
     );
   }
