@@ -29,3 +29,9 @@ html,
 
 .App {
 }
+
+.Loading {
+  margin-top: 100px;
+  text-align: center;
+  font-weight: normal;
+}

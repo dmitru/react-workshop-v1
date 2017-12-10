@@ -3,7 +3,7 @@ import './App.css';
 
 import BookList from './BookList';
 
-import { BOOKS } from './data';
+import { fetchBooks } from './apiClient';
 
 function AppLayout({ children }) {
   return (
@@ -19,10 +19,20 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: BOOKS,
+      books: null,
+      isLoading: true,
     };
 
     this.handleBookFavoriteClick = this.handleBookFavoriteClick.bind(this);
+  }
+
+  componentDidMount() {
+    fetchBooks().then(books => {
+      this.setState({
+        books: books,
+        isLoading: false,
+      });
+    });
   }
 
   handleBookFavoriteClick(bookId) {
@@ -42,12 +52,17 @@ class App extends Component {
   }
 
   render() {
+    const { isLoading } = this.state;
     return (
       <AppLayout>
-        <BookList
-          books={this.state.books}
-          onBookFavoriteClick={this.handleBookFavoriteClick}
-        />
+        {isLoading ? (
+          <h1 className="Loading">Loading...</h1>
+        ) : (
+          <BookList
+            books={this.state.books}
+            onBookFavoriteClick={this.handleBookFavoriteClick}
+          />
+        )}
       </AppLayout>
     );
   }

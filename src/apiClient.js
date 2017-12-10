@@ -1,3 +1,7 @@
+/**
+ * Module that SIMULATES a REST API
+ */
+
 export const BOOKS = [
   {
     id: 1,
@@ -40,3 +44,11 @@ export const BOOKS = [
     isFavorite: false,
   },
 ];
+
+export const fetchBooks = () => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(BOOKS);
+    }, 1000);
+  });
+};
