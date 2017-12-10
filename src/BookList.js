@@ -15,36 +15,51 @@ export default class BookList extends Component {
   }
 
   handleSearchInputChange(event) {
-    this.setState(
-      {
-        searchInputValue: event.target.value,
-      },
-      () => {
-        console.log('async: ' + this.state.searchInputValue);
-      }
+    this.setState({
+      searchInputValue: event.target.value.trim(),
+    });
+  }
+
+  getFilteredBooks() {
+    const { searchInputValue } = this.state;
+    const { books } = this.props;
+    if (!searchInputValue) {
+      return books;
+    }
+
+    return books.filter(
+      b => b.title.toLowerCase().search(searchInputValue.toLowerCase()) > -1
     );
-    console.log('sync: ' + this.state.searchInputValue);
   }
 
   render() {
-    const { showSearch, books } = this.props;
+    const { showSearch } = this.props;
+    const { searchInputValue } = this.state;
 
-    console.log('render: ', this.state.searchInputValue);
+    const filteredBooks = this.getFilteredBooks();
 
     return (
       <div className="BookList">
         {showSearch && (
           <input
             onChange={this.handleSearchInputChange}
+            value={searchInputValue}
             className="SearchBooksInput"
             type="text"
             placeholder="Search books..."
           />
         )}
 
-        {books.map(({ id, title, summary, isFavorite, reviewsCount }) => (
-          <Book key={id} title={title} isFavorite={isFavorite} reviews={reviewsCount} />
-        ))}
+        {filteredBooks.map(
+          ({ id, title, summary, isFavorite, reviewsCount }) => (
+            <Book
+              key={id}
+              title={title}
+              isFavorite={isFavorite}
+              reviews={reviewsCount}
+            />
+          )
+        )}
       </div>
     );
   }
