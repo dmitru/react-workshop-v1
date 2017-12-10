@@ -17,14 +17,27 @@ export default class BookSearchForm extends Component {
   }
 
   handleSearchInputChange(event) {
-    this.setState({
-      searchInput: event.target.value,
-    });
+    this.setState(
+      {
+        searchInput: event.target.value,
+      },
+      this.afterFieldChange
+    );
   }
 
   handleFavoriteOnlyCheckboxChange(event) {
-    this.setState({
-      favoriteOnly: event.target.checked,
+    this.setState(
+      {
+        favoriteOnly: event.target.checked,
+      },
+      this.afterFieldChange
+    );
+  }
+
+  afterFieldChange() {
+    this.props.onChange({
+      search: this.state.searchInput,
+      isFavoriteOnly: this.state.favoriteOnly,
     });
   }
 
